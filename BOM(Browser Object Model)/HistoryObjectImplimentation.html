@@ -1,0 +1,30 @@
+<html>
+<head>
+    <title>History Object Test</title>
+</head>
+<body>
+    <h1>History ZObject Test</h1>
+    <button onclick="goBack()">Go Back</button>
+    <button onclick="goForward()">Go Forward</button>
+    <button onclick="goNext2()">Go Next 2</button>
+    <button onclick="goBack2()">Go Back 2</button>
+
+    <script>
+        function goBack() {
+            history.back();
+        }
+
+        function goForward() {
+            history.forward();
+        }
+
+        function goNext2() {
+            history.go(2);
+        }
+
+        function goBack2() {
+            history.go(-2);
+        }
+    </script>
+</body>
+</html>
