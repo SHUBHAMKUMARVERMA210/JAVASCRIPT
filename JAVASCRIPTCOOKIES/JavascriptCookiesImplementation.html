@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>JavaScript Cookies</title>
+</head>
+<body>
+    <h1>JavaScript Cookies Example</h1>
+    <div id="output"></div>
+
+    <script>
+        // Function to set a cookie
+        function setCookie(name, value, days, path = '/') {
+            let expires = "";
+            if (days) {
+                let date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=" + path;
+        }
+
+        // Function to get a cookie by name
+        function getCookie(name) {
+            let nameEQ = name + "=";
+            let ca = document.cookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+            return null;
+        }
+
+        // Function to delete a cookie by name
+        function deleteCookie(name, path = '/') {
+            document.cookie = name + '=; Max-Age=-99999999; path=' + path;
+        }
+
+        // Setting cookies with various attributes
+        setCookie("username", "JohnDoe", 7); // Set a cookie that expires in 7 days
+        setCookie("sessionID", "123456", 1); // Set a cookie that expires in 1 day
+        setCookie("theme", "light", 30); // Set a cookie that expires in 30 days
+
+        // Display all cookies
+        let outputDiv = document.getElementById('output');
+        outputDiv.innerHTML = `<p>All Cookies: ${document.cookie}</p>`;
+
+        // Get specific cookie values
+        let username = getCookie("username");
+        let sessionID = getCookie("sessionID");
+        let theme = getCookie("theme");
+
+        outputDiv.innerHTML += `<p>Username Cookie: ${username}</p>`;
+        outputDiv.innerHTML += `<p>Session ID Cookie: ${sessionID}</p>`;
+        outputDiv.innerHTML += `<p>Theme Cookie: ${theme}</p>`;
+
+        // Deleting a specific cookie
+        deleteCookie("theme");
+
+        // Display all cookies after deletion
+        outputDiv.innerHTML += `<p>All Cookies after deletion: ${document.cookie}</p>`;
+    </script>
+</body>
+</html>

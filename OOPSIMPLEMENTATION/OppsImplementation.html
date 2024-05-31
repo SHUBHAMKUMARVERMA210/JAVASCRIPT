@@ -1,0 +1,135 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript OOP Concepts</title>
+    <style>
+        .output {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h3 {
+            margin: 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="output" id="output"></div>
+
+    <script>
+        // Utility function to add output to the HTML
+        function addOutput(title, message) {
+            const output = document.getElementById('output');
+            const section = document.createElement('div');
+            section.classList.add('section');
+            const h3 = document.createElement('h3');
+            h3.textContent = title;
+            section.appendChild(h3);
+            const p = document.createElement('p');
+            p.textContent = message;
+            section.appendChild(p);
+            output.appendChild(section);
+        }
+
+        // Class
+        class Animal {
+            // Constructor Method
+            constructor(name) {
+                this.name = name;
+            }
+
+            // Method
+            speak() {
+                return `${this.name} makes a sound.`;
+            }
+
+            // Static Method
+            static category() {
+                return 'Animal';
+            }
+        }
+
+        // Encapsulation through private fields (Using # for private fields in modern JavaScript)
+        class EncapsulatedAnimal {
+            #name;
+
+            constructor(name) {
+                this.#name = name;
+            }
+
+            getName() {
+                return this.#name;
+            }
+
+            setName(newName) {
+                this.#name = newName;
+            }
+        }
+
+        // Inheritance
+        class Dog extends Animal {
+            constructor(name, breed) {
+                super(name);
+                this.breed = breed;
+            }
+
+            // Overriding speak method (Polymorphism)
+            speak() {
+                return `${this.name} barks.`;
+            }
+        }
+
+        // Abstraction through base class
+        class AbstractAnimal {
+            constructor(name) {
+                if (this.constructor === AbstractAnimal) {
+                    throw new Error("Abstract classes can't be instantiated.");
+                }
+                this.name = name;
+            }
+
+            speak() {
+                throw new Error("Method 'speak()' must be implemented.");
+            }
+        }
+
+        class Cat extends AbstractAnimal {
+            speak() {
+                return `${this.name} meows.`;
+            }
+        }
+
+        // Demonstrate the concepts
+        const animal = new Animal('Generic Animal');
+        addOutput('Class & Object', animal.speak());
+        addOutput('Static Method', Animal.category());
+
+        const encapsulatedAnimal = new EncapsulatedAnimal('Encapsulated Lion');
+        addOutput('Encapsulation - Get', encapsulatedAnimal.getName());
+        encapsulatedAnimal.setName('Encapsulated Tiger');
+        addOutput('Encapsulation - Set', encapsulatedAnimal.getName());
+
+        const dog = new Dog('Buddy', 'Golden Retriever');
+        addOutput('Inheritance', dog.speak());
+
+        const cat = new Cat('Whiskers');
+        addOutput('Abstraction', cat.speak());
+
+        // Prototype
+        function ProtoAnimal(name) {
+            this.name = name;
+        }
+
+        ProtoAnimal.prototype.speak = function () {
+            return `${this.name} makes a sound.`;
+        };
+
+        const protoAnimal = new ProtoAnimal('Proto Animal');
+        addOutput('Prototype', protoAnimal.speak());
+    </script>
+</body>
+</html>
